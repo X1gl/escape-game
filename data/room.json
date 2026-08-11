@@ -1,0 +1,16 @@
+{
+  "id":"room01", "startDirection":"front", "directions":["front","right","back","left"],
+  "items":{
+    "smallKey":{"name":"小さな鍵","icon":"🔑","description":"机の引き出しで見つけた小さな鍵。","consumable":true},
+    "numberMemo":{"name":"数字のメモ","icon":"📄","description":"紙には「314」と書かれている。","detailType":"note","detailText":"314"}
+  },
+  "hotspots":[
+    {"id":"desk","direction":"front","rect":{"x":20,"y":45,"width":60,"height":35},"message":"古い机がある。"},
+    {"id":"drawer","direction":"front","rect":{"x":34,"y":58,"width":32,"height":17},"message":"引き出しは空だ。","event":"takeItem","item":"smallKey","firstMessage":"引き出しの中に小さな鍵があった。\n小さな鍵を手に入れた。","condition":{"notAcquired":"smallKey"},"setFlag":"drawerSearched"},
+    {"id":"box","direction":"right","rect":{"x":29,"y":42,"width":43,"height":34},"message":"鍵がかかっている。","event":"unlockBox","requiredItem":"smallKey","successMessage":"鍵を使って箱を開けた。\n箱の中に数字のメモが入っている。\n数字のメモを手に入れた。","setFlag":"boxOpened"},
+    {"id":"door","direction":"back","rect":{"x":26,"y":15,"width":48,"height":70},"message":"扉はロックされている。","event":"exit","condition":{"flag":"keypadUnlocked"},"successMessage":"扉が開いた……。"},
+    {"id":"keypad","direction":"back","rect":{"x":72,"y":38,"width":19,"height":27},"message":"3桁のテンキーだ。","event":"keypad"},
+    {"id":"wall","direction":"left","rect":{"x":20,"y":25,"width":60,"height":50},"message":"壁には何もない。"}
+  ],
+  "puzzle":{"keypad":{"answer":"314","wrongMessage":"番号が違うようだ。","successMessage":"ロックが解除された。"}}
+}
