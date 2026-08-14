@@ -1,12 +1,17 @@
 {
-  "opening": {"label":"OPENING", "nextMode":"escape", "lines":[
-    {"speaker":"主人公","text":"……ここはどこだ？","background":"temporary-room","character":{"id":"hero","expression":"confused"}},
-    {"speaker":"主人公","text":"どうやら閉じ込められたらしい。","background":"temporary-room","character":{"id":"hero","expression":"serious"}},
-    {"speaker":"主人公","text":"部屋を調べて、ここから出よう。","background":"temporary-room","character":{"id":"hero","expression":"determined"}}
-  ]},
-  "ending": {"label":"ENDING", "nextMode":"end", "lines":[
-    {"speaker":"主人公","text":"扉が開いた……。","background":"temporary-exit","character":{"id":"hero","expression":"surprised"}},
-    {"speaker":"主人公","text":"どうやら、ここで終わりではないらしい。","background":"temporary-exit","character":{"id":"hero","expression":"serious"}},
-    {"speaker":"主人公","text":"つづく。","background":"temporary-exit","character":{"id":"hero","expression":"neutral"}}
-  ]}
+  "intro": [
+    { "speaker": "", "text": "低い機械音が、床の奥で鳴っている。" },
+    { "speaker": "悠", "text": "……痛っ。頭が……。" },
+    { "speaker": "悠", "text": "ここは、どこだ。" },
+    { "speaker": "悠", "text": "咲……？" },
+    { "speaker": "", "text": "返事はない。扉の向こうにも、人の気配はない。" },
+    { "speaker": "悠", "text": "自分のことは分かる。咲のことも。けど……どうしてここにいる？" },
+    { "speaker": "悠", "text": "まず、ここから出ないと。" }
+  ],
+  "escape01": {
+    "room": "207号・旧経過観察室",
+    "openingMessage": "出口を探さないと。咲は、どこにいる。",
+    "clearTitle": "207号室から脱出した",
+    "clearLines": ["廊下の空気は、部屋より冷たい。", "咲も、この病院に来ていた。"]
+  }
 }
