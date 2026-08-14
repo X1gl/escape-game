@@ -23,7 +23,7 @@ const freshState = () => ({
   updatedAt: new Date(0).toISOString(),
 });
 
-let state = freshState();
+let state = { ...freshState(), screen: "title" };
 
 async function loadData() {
   const names = ["scenario", "room", "items", "documents", "flags", "hints"];
