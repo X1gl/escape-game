@@ -1,0 +1,7 @@
+{
+  "tweezers": { "name": "医療用ピンセット", "description": "細く長い。指の届かない隙間にも入りそうだ。" },
+  "small_key": { "name": "小さな鍵", "description": "洗面台の排水管の裏から拾った。小さな鍵穴に合いそうだ。" },
+  "flashlight": { "name": "懐中電灯", "description": "古いが点灯する。暗い場所を詳しく調べられる。" },
+  "metal_piece": { "name": "薄い金属片", "description": "薄くて硬い。平たい先端を何かに使えるかもしれない。" },
+  "inner_lock": { "name": "古い内鍵部品", "description": "ロッカーに入っていた。今の扉から外された部品と同じ形だ。" }
+}
