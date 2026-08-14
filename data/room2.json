@@ -1,0 +1,37 @@
+{
+  "id": "escape02_staffroom_records",
+  "staffViews": {
+    "FRONT": { "label": "正面", "hotspots": [
+      { "id": "clock2", "label": "壁掛け時計", "x": 42, "y": 9, "w": 18, "h": 24 },
+      { "id": "staffExit", "label": "廊下への扉", "x": 31, "y": 19, "w": 38, "h": 62 }
+    ]},
+    "RIGHT": { "label": "右", "hotspots": [
+      { "id": "board2", "label": "職員掲示板", "x": 9, "y": 16, "w": 46, "h": 47 },
+      { "id": "locker2", "label": "職員ロッカー", "x": 60, "y": 17, "w": 32, "h": 65 }
+    ]},
+    "BACK": { "label": "背面", "hotspots": [
+      { "id": "fridge2", "label": "冷蔵庫", "x": 7, "y": 16, "w": 28, "h": 65 },
+      { "id": "sink2", "label": "流し台", "x": 52, "y": 35, "w": 40, "h": 42 },
+      { "id": "trash2", "label": "ゴミ箱", "x": 38, "y": 65, "w": 18, "h": 22 }
+    ]},
+    "LEFT": { "label": "左", "hotspots": [
+      { "id": "pc2", "label": "業務用PC", "x": 10, "y": 28, "w": 48, "h": 41 },
+      { "id": "recordsDoor2", "label": "診療記録室の扉", "x": 66, "y": 14, "w": 28, "h": 67 }
+    ]}
+  },
+  "recordViews": {
+    "FRONT": { "label": "正面", "hotspots": [
+      { "id": "passageDoor2", "label": "スタッフ専用通路の扉", "x": 30, "y": 17, "w": 39, "h": 65 },
+      { "id": "management2", "label": "管理表", "x": 64, "y": 51, "w": 24, "h": 23 }
+    ]},
+    "RIGHT": { "label": "右", "hotspots": [
+      { "id": "cabinet2", "label": "鍵付きキャビネット", "x": 38, "y": 13, "w": 40, "h": 67 }
+    ]},
+    "BACK": { "label": "背面", "hotspots": [
+      { "id": "records2", "label": "匿名患者の診療記録", "x": 8, "y": 17, "w": 83, "h": 61 }
+    ]},
+    "LEFT": { "label": "左", "hotspots": [
+      { "id": "shelves2", "label": "正式なカルテ棚", "x": 12, "y": 14, "w": 78, "h": 69 }
+    ]}
+  }
+}

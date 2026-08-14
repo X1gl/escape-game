@@ -19,15 +19,18 @@ const freshState = () => ({
   message: "",
   modal: null,
   keypad: "",
+  keypadLength: 3,
   knobBeat: 0,
   escapeEventIndex: 0,
+  escape02Index: 0,
+  area: "staff",
   updatedAt: new Date(0).toISOString(),
 });
 
 let state = { ...freshState(), screen: "title" };
 
 async function loadData() {
-  const names = ["scenario", "room", "items", "documents", "flags", "hints"];
+  const names = ["scenario", "room", "room2", "items", "documents", "flags", "hints"];
   const values = await Promise.all(names.map(async (name) => {
     const response = await fetch(`./data/${name}.json`);
     if (!response.ok) throw new Error(`${name}.json could not be loaded`);
@@ -70,6 +73,8 @@ function save() {
     speaker: state.speaker,
     message: state.message,
     escapeEventIndex: state.escapeEventIndex,
+    escape02Index: state.escape02Index,
+    area: state.area,
     updatedAt: new Date().toISOString(),
   };
   localStorage.setItem(data.flags.saveKey, JSON.stringify(payload));
@@ -140,6 +145,10 @@ function resume() {
     state.message ||= data.scenario.escape01.openingMessage;
     state.speaker ||= "悠";
   }
+  if (state.screen === "room2") {
+    state.message ||= data.scenario.escape02.openingMessage;
+    state.speaker ||= "悠";
+  }
   render();
 }
 
@@ -191,6 +200,7 @@ function triggerFootsteps() {
 
 function interact(id) {
   play("tap");
+  if (state.screen === "room2") return interact02(id);
   switch (id) {
     case "door":
       if (state.flags.doorUnlocked) {
@@ -309,7 +319,98 @@ function interact(id) {
   render();
 }
 
+function startEscape02() {
+  play("tap");
+  clearTimers();
+  mutate({ screen: "escape02-intro", escape02Index: 0, direction: "FRONT", area: "staff", selectedItem: null, message: "", speaker: "" });
+}
+
+function advanceEscape02Intro() {
+  play("tap");
+  const next = state.escape02Index + 1;
+  if (next >= data.scenario.escape02.intro.length) {
+    mutate({ screen: "room2", escape02Index: 0, speaker: "悠", message: data.scenario.escape02.openingMessage });
+    return;
+  }
+  mutate({ escape02Index: next });
+}
+
+function enterRecordsRoom() {
+  mutate({ screen: "escape02-records-intro", escape02Index: 0, direction: "FRONT", area: "records", selectedItem: null });
+}
+
+function advanceRecordsIntro() {
+  play("tap");
+  const next = state.escape02Index + 1;
+  if (next >= data.scenario.escape02.recordsIntro.length) {
+    mutate({ screen: "room2", escape02Index: 0, speaker: "悠", message: "棚の奥に、分類されていない診療記録がある。" });
+    return;
+  }
+  mutate({ escape02Index: next });
+}
+
+function advanceEscape02End() {
+  play("tap");
+  const next = state.escape02Index + 1;
+  if (next >= data.scenario.escape02.ending.length) {
+    mutate({ screen: "escaped2", escape02Index: 0 });
+    return;
+  }
+  mutate({ escape02Index: next });
+}
+
+function interact02(id) {
+  switch (id) {
+    case "clock2": setFlags({ sawClock2: true }); say("時計は2月6日、午前0時を少し過ぎている。止まっていない。"); break;
+    case "staffExit": say("廊下へ戻るより、ここを調べる。まだ使われているなら、咲の痕跡もあるかもしれない。"); break;
+    case "fridge2": setFlags({ sawFridge2: true }); say("冷蔵庫は通電している。中には新しい飲み物と、今日の日付の弁当がある。"); break;
+    case "sink2": setFlags({ sawSink2: true }); say("流し台は濡れている。ついさっき、誰かが使ったようだ。"); break;
+    case "trash2": setFlags({ sawTrash2: true }); say("ゴミ箱に、処置室2の清掃記録が捨てられている。ここは廃院じゃない。"); break;
+    case "board2": setFlags({ sawBoard2: true }); say("掲示板の担当表。『記録担当：STAFF C』。横のホワイトボードには『2/6 搬入・消耗品補充・処置室2 清掃』とある。"); break;
+    case "locker2":
+      if (!state.flags.sawBoard2) say("職員ロッカー。どの扉を調べればいいか、担当表を見よう。");
+      else if (!hasItem("staff_card")) { addItem("staff_card"); setFlags({ gotStaffCard: true }); say("STAFF Cのロッカーに職員証が残っていた。ID:4721。"); }
+      else say("STAFF Cのロッカーは空だ。");
+      break;
+    case "pc2":
+      if (!hasItem("staff_card")) say("業務用PCはログイン画面のままだ。職員用の認証が必要らしい。");
+      else if (state.selectedItem !== "staff_card") say("職員証を使えそうだ。");
+      else { setFlags({ pcLoggedIn: true }); say("ID:4721でログインできた。業務画面に『記録室認証：職員番号下2桁＋当日の日付（日）』と表示されている。認証は更新済み。 "); }
+      break;
+    case "recordsDoor2":
+      if (!state.flags.pcLoggedIn) say("4桁電子ロック。職員証のIDをそのまま入れても反応しない。");
+      else { state.modal = "keypad2"; state.keypad = ""; state.keypadLength = 4; render(); }
+      return;
+    case "records2": setFlags({ readRecords2: true }); say("M-04、F-02、M-11……名前も住所もない。M-11の欄には『銃創』。名前を書けないんじゃない。書かないようにしてる。"); break;
+    case "shelves2": setFlags({ sawFormalShelves2: true }); say("正式なカルテ棚とは別に、匿名の患者だけをまとめた記録がある。単なる記入漏れじゃない。"); break;
+    case "cabinet2":
+      if (!state.flags.readRecords2) say("鍵付きキャビネット。近くの記録を先に確認しよう。");
+      else if (!hasItem("passage_key")) { addItem("passage_key"); addItem("management_sheet"); setFlags({ cabinetOpened2: true }); say("記録分類と同じ色の仕切りをずらすと、キャビネットの錠が外れた。鍵と管理表が入っている。"); }
+      else say("キャビネットは空だ。");
+      break;
+    case "management2":
+      if (!hasItem("management_sheet")) say("キャビネットの中に、今日の管理表がある。");
+      else say("最下部に『侵入 2』。誰のことだ？");
+      break;
+    case "passageDoor2":
+      if (!hasItem("passage_key")) say("スタッフ専用通路の扉。鍵が掛かっている。");
+      else mutate({ screen: "escape02-end", escape02Index: 0, selectedItem: null });
+      return;
+    default: return;
+  }
+  save(); render();
+}
+
 function submitKeypad() {
+  if (state.modal === "keypad2") {
+    if (state.keypad !== "2106") { play("knob"); state.keypad = ""; render(); return; }
+    state.modal = null;
+    setFlags({ recordsDoorUnlocked: true });
+    say("2106。電子錠が解除された。診療記録室に入れる。");
+    save(); render();
+    timers.push(window.setTimeout(enterRecordsRoom, 900));
+    return;
+  }
   if (state.keypad !== "207") {
     play("knob");
     state.keypad = "";
@@ -323,6 +424,12 @@ function submitKeypad() {
   save();
   render();
   if (state.flags.panelOpened) timers.push(window.setTimeout(triggerFootsteps, 700));
+}
+
+function room2Art() {
+  const base = state.area === "staff" ? "staffroom" : "records";
+  const file = `${base}-${state.direction.toLowerCase()}-v1.webp`;
+  return `<div class="room-art asset-art" style="--room-image:url('assets/escape02/${file}')" aria-hidden="true"></div>`;
 }
 
 function roomArt() {
@@ -390,9 +497,36 @@ function roomTemplate() {
     <div class="inventory-list">${inventory}${selected ? '<button class="detail-button" data-action="item-detail">詳細</button>' : ""}</div></div></section>`;
 }
 
+function room2Template() {
+  const views = state.area === "staff" ? data.room2.staffViews : data.room2.recordViews;
+  const view = views[state.direction];
+  const selected = state.selectedItem ? data.items[state.selectedItem] : null;
+  const hotspots = view.hotspots.map((spot) => `<button class="hotspot hotspot-${spot.id}" data-interact="${spot.id}" style="left:${spot.x}%;top:${spot.y}%;width:${spot.w}%;height:${spot.h}%" aria-label="${spot.label}"><span>${spot.label}</span></button>`).join("");
+  const inventory = state.inventory.length ? state.inventory.map((id) => `<button class="item-card ${state.selectedItem === id ? "selected" : ""}" data-item="${id}"><span class="item-icon item-${id}"></span><small>${data.items[id].name}</small></button>`).join("") : '<p class="empty-inventory">まだ何も持っていない</p>';
+  const roomName = state.area === "staff" ? data.scenario.escape02.room : "本棟・診療記録室";
+  return `<section class="room-screen"><header class="room-header"><div><span>CHAPTER 1 / ESCAPE 02</span><strong>${roomName}</strong></div><div class="header-actions"><button data-action="sound">${isEnabled() ? "音 ON" : "音 OFF"}</button><button data-action="menu" aria-label="メニュー">•••</button></div></header><div class="scene-wrap">${room2Art()}<div class="direction-chip">${view.label}</div>${hotspots}<button class="turn-button turn-left" data-action="left" aria-label="左を向く">‹</button><button class="turn-button turn-right" data-action="right" aria-label="右を向く">›</button></div><div class="message-box"><p class="message-speaker">${state.speaker}</p><p>${state.message}</p></div><div class="inventory-wrap"><div class="inventory-title"><span>ITEM</span><small>${selected ? `${selected.name}を選択中` : "使うアイテムを選択"}</small></div><div class="inventory-list">${inventory}${selected ? '<button class="detail-button" data-action="item-detail">詳細</button>' : ""}</div></div></section>`;
+}
+
+function escape02NovelTemplate(kind) {
+  const lines = kind === "intro" ? data.scenario.escape02.intro : data.scenario.escape02.recordsIntro;
+  const line = lines[state.escape02Index];
+  const image = kind === "intro" ? "staffroom-front-v1.webp" : "records-front-v1.webp";
+  const action = kind === "intro" ? "escape02-intro" : "records-intro";
+  return `<section class="novel-screen escape02-event" data-action="${action}" role="button" tabindex="0"><div class="novel-room asset-art" style="--room-image:url('assets/escape02/${image}')"></div><div class="vignette"></div><div class="novel-box"><p class="novel-speaker">${line.speaker}</p><p>${line.text}</p><span>tap</span></div></section>`;
+}
+
+function escape02EndTemplate() {
+  const line = data.scenario.escape02.ending[state.escape02Index];
+  return `<section class="novel-screen escape02-event" data-action="escape02-end" role="button" tabindex="0"><div class="novel-room asset-art" style="--room-image:url('assets/escape02/records-right-v1.webp')"></div><div class="vignette"></div><div class="novel-box"><p class="novel-speaker">${line.speaker}</p><p>${line.text}</p><span>tap</span></div></section>`;
+}
+
+function escaped2Template() {
+  return `<section class="escape-screen"><div class="corridor" aria-hidden="true"></div><div class="escape-copy"><p>ESCAPE 02</p><h2>診療記録室を抜けた</h2><span>この施設は、今も動いている。</span><strong>『侵入 2』は、誰を数えた記録だ。</strong><button data-action="title">タイトルへ戻る</button><small>次回実装：第3脱出「搬送・備品管理区画」</small></div></section>`;
+}
+
 function escapedTemplate() {
   return `<section class="escape-screen"><div class="corridor" aria-hidden="true"></div><div class="escape-copy"><p>ESCAPE 01</p><h2>${data.scenario.escape01.clearTitle}</h2>
-    <span>${data.scenario.escape01.clearLines[0]}</span><strong>${data.scenario.escape01.clearLines[1]}</strong><button data-action="title">タイトルへ戻る</button><small>次回実装：第2脱出「スタッフルーム → 診療記録室」</small></div></section>`;
+    <span>${data.scenario.escape01.clearLines[0]}</span><strong>${data.scenario.escape01.clearLines[1]}</strong><button data-action="start-escape02">スタッフルームへ進む</button><button class="sub-clear-button" data-action="title">タイトルへ戻る</button></div></section>`;
 }
 
 function escapeEventTemplate() {
@@ -423,9 +557,10 @@ function advanceEscapeEvent() {
 function modalTemplate() {
   if (!state.modal) return "";
   let content = "";
-  if (state.modal === "keypad") {
+  if (state.modal === "keypad" || state.modal === "keypad2") {
     const buttons = [1,2,3,4,5,6,7,8,9,"消",0,"決定"].map((key) => `<button data-key="${key}">${key}</button>`).join("");
-    content = `<p class="modal-kicker">SMALL LOCKER</p><h2>3桁ダイヤル</h2><div class="keypad-display">${state.keypad.padEnd(3, "·")}</div><div class="keypad-grid">${buttons}</div>`;
+    const isSecond = state.modal === "keypad2";
+    content = `<p class="modal-kicker">${isSecond ? "RECORDS ROOM" : "SMALL LOCKER"}</p><h2>${isSecond ? "4桁電子ロック" : "3桁ダイヤル"}</h2><div class="keypad-display">${state.keypad.padEnd(isSecond ? 4 : 3, "·")}</div><div class="keypad-grid">${buttons}</div>`;
   } else if (state.modal === "item") {
     const item = data.items[state.selectedItem];
     content = `<p class="modal-kicker">ITEM DETAIL</p><h2>${item.name}</h2><span class="large-item-icon item-${state.selectedItem}"></span><p>${item.description}</p>`;
@@ -440,11 +575,11 @@ function modalTemplate() {
 }
 
 function render() {
-  const screen = state.screen === "title" ? titleTemplate() : state.screen === "novel" ? novelTemplate() : state.screen === "room" ? roomTemplate() : state.screen === "escape-event" ? escapeEventTemplate() : escapedTemplate();
+  const screen = state.screen === "title" ? titleTemplate() : state.screen === "novel" ? novelTemplate() : state.screen === "room" ? roomTemplate() : state.screen === "room2" ? room2Template() : state.screen === "escape-event" ? escapeEventTemplate() : state.screen === "escape02-intro" ? escape02NovelTemplate("intro") : state.screen === "escape02-records-intro" ? escape02NovelTemplate("records") : state.screen === "escape02-end" ? escape02EndTemplate() : state.screen === "escaped2" ? escaped2Template() : escapedTemplate();
   app.className = `game-shell screen-${state.screen}`;
   app.innerHTML = screen + modalTemplate();
   bindEvents();
-  if (state.screen === "room") startHum();
+  if (state.screen === "room" || state.screen === "room2") startHum();
   else stopHum();
 }
 
@@ -455,6 +590,10 @@ function bindEvents() {
     else if (action === "resume") resume();
     else if (action === "novel") advanceNovel();
     else if (action === "escape-event") advanceEscapeEvent();
+    else if (action === "start-escape02") startEscape02();
+    else if (action === "escape02-intro") advanceEscape02Intro();
+    else if (action === "records-intro") advanceRecordsIntro();
+    else if (action === "escape02-end") advanceEscape02End();
     else if (action === "left") rotate(-1);
     else if (action === "right") rotate(1);
     else if (action === "sound") { setEnabled(!isEnabled()); render(); }
@@ -485,7 +624,7 @@ function bindEvents() {
     const key = element.dataset.key;
     if (key === "消") state.keypad = "";
     else if (key === "決定") return submitKeypad();
-    else if (state.keypad.length < 3) state.keypad += key;
+    else if (state.keypad.length < (state.modal === "keypad2" ? 4 : 3)) state.keypad += key;
     render();
   }));
   const scene = app.querySelector(".scene-wrap");

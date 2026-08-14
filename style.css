@@ -162,6 +162,9 @@ button:disabled { cursor: default; }
 .item-metal_piece { background-image: url("assets/items/metal-piece-v1.webp"); }
 .item-inner_lock { background-image: url("assets/items/inner-lock-v1.webp"); }
 .item-saki_strap { background-image: url("assets/items/saki-strap-v1.webp"); }
+.item-staff_card { background-image: url("assets/items/staff-card-v1.webp"); }
+.item-passage_key { background-image: url("assets/items/passage-key-v1.webp"); }
+.item-management_sheet { background-image: url("assets/items/management-sheet-v1.webp"); }
 .detail-button { flex: 0 0 48px; border: 1px dashed rgba(255,255,255,.14); background: transparent; color: var(--muted); font-size: 9px; }
 
 /* modal */
@@ -192,6 +195,7 @@ button:disabled { cursor: default; }
 .escape-copy span, .escape-copy strong { display: block; font-size: 13px; line-height: 2; }
 .escape-copy strong { margin-top: 8px; color: var(--amber); }
 .escape-copy button { width: 100%; min-height: 50px; margin-top: 30px; border: 1px solid var(--line); background: #d7d7ce; color: #0d1010; font-weight: 700; }
+.escape-copy .sub-clear-button { min-height: 38px; margin-top: 10px; background: transparent; color: var(--muted); font-size: 11px; }
 .escape-copy small { display: block; margin-top: 14px; color: var(--dim); font-size: 9px; }
 .load-error { min-height: 100svh; display: grid; place-content: center; padding: 30px; text-align: center; }
 .load-error h1 { font-family: Georgia, "Yu Mincho", serif; font-weight: 500; }

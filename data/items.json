@@ -4,5 +4,8 @@
   "flashlight": { "name": "懐中電灯", "description": "古いが点灯する。暗い場所を詳しく調べられる。" },
   "metal_piece": { "name": "薄い金属片", "description": "薄くて硬い。平たい先端を何かに使えるかもしれない。" },
   "inner_lock": { "name": "古い内鍵部品", "description": "ロッカーに入っていた。今の扉から外された部品と同じ形だ。" },
-  "saki_strap": { "name": "咲の布製ストラップ", "description": "咲がいつも鞄に付けていた、青い布のストラップ。207号室の外の廊下に落ちていた。" }
+  "saki_strap": { "name": "咲の布製ストラップ", "description": "咲がいつも鞄に付けていた、青い布のストラップ。207号室の外の廊下に落ちていた。" },
+  "staff_card": { "name": "職員証", "description": "STAFF C / ID:4721。職員用の業務端末に使える。" },
+  "passage_key": { "name": "スタッフ専用通路の鍵", "description": "診療記録室のキャビネットに入っていた。次の区画へ進むための鍵。" },
+  "management_sheet": { "name": "今日の管理表", "description": "搬入・処置・清掃の記録の最下部に、『侵入 2』とだけ残されている。" }
 }
