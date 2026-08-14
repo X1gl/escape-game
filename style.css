@@ -39,11 +39,9 @@ button:disabled { cursor: default; }
 
 /* novel */
 .novel-screen { position: relative; min-height: 100svh; overflow: hidden; background: #0b0e0d; outline: none; }
-.novel-room { position: absolute; inset: 0; background: linear-gradient(145deg, #303633, #121614 60%, #080a09); filter: saturate(.55); }
-.novel-room::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10%; height: 43%; transform: perspective(230px) rotateX(49deg); transform-origin: top; background: repeating-linear-gradient(90deg, #191d1b 0 73px, #0c0e0d 75px); }
-.novel-door { position: absolute; width: 44%; height: 68%; left: 28%; top: 7%; border: 9px solid #090b0b; background: linear-gradient(90deg,#171b1a,#202523 55%,#151918); box-shadow: 0 0 50px rgba(0,0,0,.7); }
-.novel-door::after { content: ""; position: absolute; right: 14%; top: 51%; width: 30px; height: 8px; background: #72756e; box-shadow: 0 0 8px #000; }
-.novel-bed { position: absolute; left: -8%; right: 30%; bottom: 17%; height: 17%; transform: skewX(-9deg); background: #242927; border: 7px solid #111414; box-shadow: 0 18px 25px #050606; }
+.novel-room { position: absolute; inset: 0; background: #0b0e0d url("assets/room207/room207-front-base-v1.webp?v=1.3.1") center / cover no-repeat; filter: saturate(.65) brightness(.82); }
+.novel-room::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.18) 58%, rgba(0,0,0,.5)); }
+.novel-door, .novel-bed { display: none; }
 .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.45) 70%, #050606 100%); }
 .novel-box { position: absolute; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 18px); min-height: 154px; padding: 26px 24px 22px; border-top: 1px solid rgba(218,224,216,.34); background: rgba(7,10,10,.92); box-shadow: 0 -20px 60px rgba(0,0,0,.5); }
 .novel-box p { margin: 0; font-size: 15px; line-height: 2; letter-spacing: .055em; }
