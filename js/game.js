@@ -389,8 +389,13 @@ function roomTemplate() {
 }
 
 function escapedTemplate() {
-  return `<section class="escape-screen"><div class="corridor"><i></i><i></i><i></i></div><div class="escape-copy"><p>ESCAPE 01</p><h2>${data.scenario.escape01.clearTitle}</h2>
-    <span>${data.scenario.escape01.clearLines[0]}</span><strong>${data.scenario.escape01.clearLines[1]}</strong><button data-action="title">タイトルへ戻る</button><small>次回実装：第2脱出「スタッフルーム → 診療記録室」</small></div></section>`;
+  const foundBelonging = state.flags.sakiStrapFound;
+  const belonging = foundBelonging
+    ? '<span class="belonging-mark item-saki_strap" aria-hidden="true"></span>'
+    : `<button class="belonging-pickup" data-action="find-belonging" aria-label="咲の私物を拾う"><img src="assets/items/saki-strap-v1.webp" alt=""><span>${data.scenario.escape01.belongingPrompt}</span></button>`;
+  const foundText = foundBelonging ? `<p class="belonging-found">${data.scenario.escape01.belongingFound}</p>` : "";
+  return `<section class="escape-screen"><div class="corridor"><span class="corridor-room room-201" aria-hidden="true">201</span><span class="corridor-room room-202" aria-hidden="true">202</span><span class="corridor-room room-203" aria-hidden="true">203</span><span class="corridor-room room-204" aria-hidden="true">204</span><span class="corridor-room room-205" aria-hidden="true">205</span><span class="corridor-room room-206" aria-hidden="true">206</span>${belonging}</div><div class="escape-copy"><p>ESCAPE 01</p><h2>${data.scenario.escape01.clearTitle}</h2>
+    <span>${data.scenario.escape01.clearLines[0]}</span><strong>${data.scenario.escape01.clearLines[1]}</strong>${foundText}<button data-action="title">タイトルへ戻る</button><small>次回実装：第2脱出「スタッフルーム → 診療記録室」</small></div></section>`;
 }
 
 function modalTemplate() {
@@ -433,6 +438,13 @@ function bindEvents() {
     else if (action === "hint") mutate({ modal: "hint" }, false);
     else if (action === "menu") mutate({ modal: "menu" }, false);
     else if (action === "item-detail") mutate({ modal: "item" }, false);
+    else if (action === "find-belonging") {
+      if (state.flags.sakiStrapFound) return;
+      addItem("saki_strap");
+      setFlags({ sakiStrapFound: true });
+      save();
+      render();
+    }
     else if (action === "next-hint" && state.hintLevel < 2) mutate({ hintLevel: state.hintLevel + 1, modal: "hint" });
     else if (action === "title") { stopHum(); mutate({ screen: "title", modal: null }, false); }
     else if (action === "close-modal") {
