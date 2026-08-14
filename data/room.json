@@ -1,16 +1,24 @@
 {
-  "id":"room01", "startDirection":"front", "directions":["front","right","back","left"],
-  "items":{
-    "smallKey":{"name":"小さな鍵","icon":"🔑","description":"机の引き出しで見つけた小さな鍵。","consumable":true},
-    "numberMemo":{"name":"数字のメモ","icon":"📄","description":"紙には「314」と書かれている。","detailType":"note","detailText":"314"}
-  },
-  "hotspots":[
-    {"id":"desk","direction":"front","rect":{"x":20,"y":45,"width":60,"height":35},"message":"古い机がある。"},
-    {"id":"drawer","direction":"front","rect":{"x":34,"y":58,"width":32,"height":17},"message":"引き出しは空だ。","event":"takeItem","item":"smallKey","firstMessage":"引き出しの中に小さな鍵があった。\n小さな鍵を手に入れた。","condition":{"notAcquired":"smallKey"},"setFlag":"drawerSearched"},
-    {"id":"box","direction":"right","rect":{"x":29,"y":42,"width":43,"height":34},"message":"鍵がかかっている。","event":"unlockBox","requiredItem":"smallKey","successMessage":"鍵を使って箱を開けた。\n箱の中に数字のメモが入っている。\n数字のメモを手に入れた。","setFlag":"boxOpened"},
-    {"id":"door","direction":"back","rect":{"x":26,"y":15,"width":48,"height":70},"message":"扉はロックされている。","event":"exit","condition":{"flag":"keypadUnlocked"},"successMessage":"扉が開いた……。"},
-    {"id":"keypad","direction":"back","rect":{"x":72,"y":38,"width":19,"height":27},"message":"3桁のテンキーだ。","event":"keypad"},
-    {"id":"wall","direction":"left","rect":{"x":20,"y":25,"width":60,"height":50},"message":"壁には何もない。"}
-  ],
-  "puzzle":{"keypad":{"answer":"314","wrongMessage":"番号が違うようだ。","successMessage":"ロックが解除された。"}}
+  "id": "escape01_room207",
+  "views": {
+    "FRONT": { "label": "正面", "hotspots": [
+      { "id": "door", "label": "出口扉", "x": 35, "y": 14, "w": 31, "h": 65 },
+      { "id": "doorTrace", "label": "名札の跡", "x": 38, "y": 18, "w": 22, "h": 15 },
+      { "id": "panel", "label": "点検パネル", "x": 44, "y": 60, "w": 17, "h": 15 }
+    ]},
+    "RIGHT": { "label": "右", "hotspots": [
+      { "id": "sink", "label": "洗面台", "x": 12, "y": 35, "w": 38, "h": 42 },
+      { "id": "cabinet", "label": "金属キャビネット", "x": 58, "y": 28, "w": 34, "h": 52 }
+    ]},
+    "BACK": { "label": "背面", "hotspots": [
+      { "id": "opening", "label": "高い開口", "x": 33, "y": 5, "w": 34, "h": 22 },
+      { "id": "bed", "label": "古いベッド", "x": 5, "y": 48, "w": 64, "h": 36 },
+      { "id": "metalPiece", "label": "床際", "x": 22, "y": 72, "w": 25, "h": 16 },
+      { "id": "locker", "label": "小型ロッカー", "x": 72, "y": 38, "w": 23, "h": 43 }
+    ]},
+    "LEFT": { "label": "左", "hotspots": [
+      { "id": "shelf", "label": "重い棚", "x": 5, "y": 16, "w": 48, "h": 65 },
+      { "id": "wagon", "label": "医療用ワゴン", "x": 58, "y": 36, "w": 36, "h": 46 }
+    ]}
+  }
 }
