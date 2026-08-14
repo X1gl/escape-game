@@ -1,0 +1,7 @@
+{
+  "persistentKey": "eg_unlocked",
+  "saveKey": "eg_save",
+  "metaKey": "eg_meta",
+  "persistent": ["talkToK", "takeBox", "openBox", "trueEpilogue"],
+  "defaults": { "talkToK": false, "takeBox": false, "openBox": false, "trueEpilogue": false }
+}
