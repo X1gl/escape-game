@@ -31,7 +31,12 @@ data/
   documents.json
   flags.json
   hints.json
+assets/
+  room207/  # 4方向背景と状態差分（WebP表示用／PNG原本）
+  items/    # 取得アイテム5点（透過WebP表示用／透過PNG原本）
 ```
+
+第1脱出の室内背景とアイテム画像は正式画像素材へ置き換え済みです。ゲームでは通信量を抑えた WebP を読み込み、PNG は編集用の原本として保持しています。
 
 ## セーブデータ
 

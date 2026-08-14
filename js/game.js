@@ -325,20 +325,38 @@ function submitKeypad() {
 
 function roomArt() {
   const flags = state.flags;
-  if (state.direction === "FRONT") return `
-    <div class="room-art front-art" aria-hidden="true"><div class="ceiling-pipe"></div><div class="door-frame">
-      <div class="door-number-ghost">207</div><div class="screw-hole screw-one"></div><div class="screw-hole screw-two"></div>
-      <div class="door-handle"></div><div class="inspection-panel ${flags.panelOpened ? "open" : ""}"><i></i><i></i><i></i><i></i>${flags.panelOpened ? '<span class="wire"></span>' : ""}</div>
-    </div><div class="floor-line"></div></div>`;
-  if (state.direction === "RIGHT") return `
-    <div class="room-art right-art" aria-hidden="true"><div class="mirror"><span></span></div><div class="sink"><div class="faucet"></div><div class="basin"></div></div>
-      ${flags.gotSmallKey ? "" : '<div class="tiny-key"></div>'}<div class="cabinet ${flags.cabinetOpened ? "open" : ""}"><div class="cabinet-door left-door"></div><div class="cabinet-door right-door"></div>${flags.cabinetOpened ? '<div class="cabinet-shelf"><span></span><span></span></div>' : ""}</div></div>`;
-  if (state.direction === "BACK") return `
-    <div class="room-art back-art ${flags.hasFlashlight ? "lit" : ""}" aria-hidden="true"><div class="sealed-opening"><span></span><b></b><i></i></div>
-      <div class="bed"><div class="mattress"></div><div class="bed-frame"></div><i></i><i></i></div><div class="scratch-cluster">||||| ||||| |||||</div>
-      ${!flags.gotMetalPiece && flags.hasFlashlight ? '<div class="metal-glint"></div>' : ""}<div class="locker ${flags.lockerOpened ? "open" : ""}"><span>•••</span></div></div>`;
-  return `<div class="room-art left-art" aria-hidden="true"><div class="heavy-shelf ${flags.shelfMoved ? "moved" : ""}"><div></div><div></div><div></div></div>
-    ${flags.shelfMoved ? '<div class="cat-star">☆<span>ᓚᘏᗢ</span></div>' : ""}<div class="medical-cart"><div class="cart-top"></div><div class="cart-tray"><span></span></div><i></i><i></i></div></div>`;
+  if (state.direction === "FRONT") {
+    const image = flags.panelOpened ? "room207-front-panel-open-v1.webp" : "room207-front-base-v1.webp";
+    return `<div class="room-art asset-art" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>`;
+  }
+  if (state.direction === "RIGHT") {
+    const image = flags.cabinetOpened
+      ? "room207-right-cabinet-open-v1.webp"
+      : flags.gotSmallKey
+        ? "room207-right-key-removed-v1.webp"
+        : "room207-right-base-v1.webp";
+    return `<div class="room-art asset-art" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>`;
+  }
+  if (state.direction === "BACK") {
+    const image = flags.hasFlashlight
+      ? flags.lockerOpened
+        ? "room207-back-locker-open-v1.webp"
+        : "room207-back-flashlight-v1.webp"
+      : "room207-back-base-v1.webp";
+    const metalPiece = flags.hasFlashlight && !flags.gotMetalPiece
+      ? '<img class="scene-item scene-metal-piece" src="assets/items/metal-piece-v1.webp" alt="" aria-hidden="true">'
+      : "";
+    return `<div class="room-art asset-art" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${metalPiece}`;
+  }
+  const image = flags.shelfMoved
+    ? "room207-left-shelf-moved-v1.webp"
+    : flags.gotTweezers
+      ? "room207-left-tweezers-removed-v1.webp"
+      : "room207-left-base-v1.webp";
+  const tweezers = flags.shelfMoved && !flags.gotTweezers
+    ? '<img class="scene-item scene-tweezers" src="assets/items/tweezers-v1.webp" alt="" aria-hidden="true">'
+    : "";
+  return `<div class="room-art asset-art" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${tweezers}`;
 }
 
 function titleTemplate() {
