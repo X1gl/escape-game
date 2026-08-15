@@ -432,16 +432,16 @@ function room2Art() {
   return `<div class="room-art asset-art" style="--room-image:url('assets/escape02/${file}')" aria-hidden="true"></div>`;
 }
 
-function focusArt(file, className) {
-  return `<img class="scene-focus ${className}" src="assets/room207/focus/${file}" alt="" aria-hidden="true">`;
+function objectArt(file, className) {
+  return `<img class="scene-object ${className}" src="assets/room207/objects-v2/${file}" alt="" aria-hidden="true">`;
 }
 
 function roomArt() {
   const flags = state.flags;
   if (state.direction === "FRONT") {
     const image = flags.panelOpened ? "room207-front-panel-open-v1.webp" : "room207-front-base-v1.webp";
-    const door = flags.panelOpened ? "front-door-panel-open-v1.webp" : "front-door-closed-v1.webp";
-    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${focusArt(door, "focus-front-door")}`;
+    const door = flags.panelOpened ? "front-door-panel-open-v2.webp" : "front-door-closed-v2.webp";
+    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${objectArt(door, "object-front-door")}`;
   }
   if (state.direction === "RIGHT") {
     const image = flags.cabinetOpened
@@ -449,12 +449,8 @@ function roomArt() {
       : flags.gotSmallKey
         ? "room207-right-key-removed-v1.webp"
         : "room207-right-base-v1.webp";
-    const cabinet = flags.cabinetOpened
-      ? "right-cabinet-open-v1.webp"
-      : flags.gotSmallKey
-        ? "right-cabinet-key-removed-v1.webp"
-        : "right-cabinet-closed-v1.webp";
-    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${focusArt("right-sink-v1.webp", "focus-right-sink")}${focusArt(cabinet, "focus-right-cabinet")}`;
+    const cabinet = flags.cabinetOpened ? "right-cabinet-open-v2.webp" : "right-cabinet-closed-v2.webp";
+    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${objectArt("right-mirror-v2.webp", "object-right-mirror")}${objectArt("right-sink-v2.webp", "object-right-sink")}${objectArt(cabinet, flags.cabinetOpened ? "object-right-cabinet-open" : "object-right-cabinet")}`;
   }
   if (state.direction === "BACK") {
     const image = flags.hasFlashlight
@@ -462,30 +458,21 @@ function roomArt() {
         ? "room207-back-locker-open-v1.webp"
         : "room207-back-flashlight-v1.webp"
       : "room207-back-base-v1.webp";
-    const locker = flags.lockerOpened
-      ? "back-locker-open-v1.webp"
-      : flags.hasFlashlight
-        ? "back-locker-flashlight-v1.webp"
-        : "back-locker-closed-v1.webp";
     const metalPiece = flags.hasFlashlight && !flags.gotMetalPiece
-      ? '<img class="scene-item scene-metal-piece" src="assets/items/metal-piece-v1.webp" alt="" aria-hidden="true">'
+      ? objectArt("back-metal-piece-v2.webp", "object-back-metal-piece")
       : "";
-    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${focusArt("back-opening-v1.webp", "focus-back-opening")}${focusArt("back-bed-v1.webp", "focus-back-bed")}${focusArt(locker, "focus-back-locker")}${metalPiece}`;
+    const locker = flags.lockerOpened ? "back-locker-open-v2.webp" : "back-locker-closed-v2.webp";
+    const lockerClass = flags.lockerOpened ? "object-back-locker-open" : "object-back-locker";
+    return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${objectArt("back-opening-v2.webp", "object-back-opening")}${objectArt("back-bed-v2.webp", "object-back-bed")}${objectArt(locker, lockerClass)}${metalPiece}`;
   }
   const image = flags.shelfMoved
     ? "room207-left-shelf-moved-v1.webp"
     : flags.gotTweezers
       ? "room207-left-tweezers-removed-v1.webp"
       : "room207-left-base-v1.webp";
-  const shelf = flags.shelfMoved
-    ? "left-shelf-moved-v1.webp"
-    : flags.gotTweezers
-      ? "left-shelf-tweezers-removed-v1.webp"
-      : "left-shelf-base-v1.webp";
-  const tweezers = flags.shelfMoved && !flags.gotTweezers
-    ? '<img class="scene-item scene-tweezers" src="assets/items/tweezers-v1.webp" alt="" aria-hidden="true">'
-    : "";
-  return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${focusArt(shelf, "focus-left-shelf")}${focusArt("left-wagon-v1.webp", "focus-left-wagon")}${tweezers}`;
+  const shelf = flags.shelfMoved ? "left-shelf-moved-v2.webp" : "left-shelf-base-v2.webp";
+  const wagon = flags.shelfMoved && !flags.gotTweezers ? "left-wagon-tweezers-v2.webp" : "left-wagon-empty-v2.webp";
+  return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/${image}')" aria-hidden="true"></div>${objectArt(shelf, flags.shelfMoved ? "object-left-shelf-moved" : "object-left-shelf")}${objectArt(wagon, "object-left-wagon")}`;
 }
 
 function titleTemplate() {

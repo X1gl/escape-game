@@ -63,19 +63,21 @@ button:disabled { cursor: default; }
 .room-art::after { content: ""; position: absolute; left: 0; right: 0; top: 10%; height: 1px; background: rgba(232,235,223,.06); box-shadow: 0 105px rgba(232,235,223,.035); }
 .asset-art { background: #0b0e0d var(--room-image) center / cover no-repeat; }
 .asset-art::before, .asset-art::after { display: none; }
-.chapter1-backdrop { inset: -8px; filter: brightness(.38) saturate(.68) contrast(1.08) blur(5px); }
-.scene-focus { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; filter: brightness(.82) contrast(1.09) drop-shadow(0 5px 10px rgba(0,0,0,.44)); }
-.focus-front-door { left: 33.01%; top: 20.12%; width: 34.77%; height: 62.5%; }
-.focus-right-sink { left: 5.37%; top: 21.48%; width: 41.02%; height: 44.92%; }
-.focus-right-cabinet { left: 54.69%; top: 21%; width: 38.09%; height: 60.55%; }
-.focus-back-opening { left: 30.27%; top: 3.42%; width: 39.06%; height: 30.27%; }
-.focus-back-bed { left: 0; top: 45.9%; width: 68.36%; height: 39.06%; }
-.focus-back-locker { left: 64.45%; top: 33.69%; width: 35.55%; height: 52.73%; }
-.focus-left-shelf { left: 2.93%; top: 14.16%; width: 55.18%; height: 71.29%; }
-.focus-left-wagon { left: 55.18%; top: 35.16%; width: 41.02%; height: 49.8%; }
-.scene-item { position: absolute; z-index: 5; display: block; pointer-events: none; object-fit: contain; filter: drop-shadow(0 0 5px rgba(213, 222, 214, .3)); }
-.scene-metal-piece { left: 25%; top: 77%; width: 8%; transform: rotate(8deg); }
-.scene-tweezers { left: 73%; top: 56%; width: 11%; transform: rotate(-8deg); }
+.chapter1-backdrop { inset: -4px; filter: brightness(.68) saturate(.78) contrast(1.05) blur(3px); }
+.scene-object { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; filter: drop-shadow(0 4px 7px rgba(0,0,0,.34)); }
+.object-front-door { left: 30%; top: 18%; width: 40%; }
+.object-right-mirror { left: 16%; top: 22%; width: 23%; }
+.object-right-sink { left: 11%; top: 43%; width: 39%; }
+.object-right-cabinet { left: 53%; top: 19%; width: 38%; }
+.object-right-cabinet-open { left: 48%; top: 18%; width: 46%; }
+.object-back-opening { left: 31%; top: 9%; width: 36%; }
+.object-back-bed { left: 4%; top: 56%; width: 67%; }
+.object-back-locker { left: 72%; top: 38%; width: 21%; }
+.object-back-locker-open { left: 66%; top: 37%; width: 28%; }
+.object-back-metal-piece { left: 25%; top: 77%; width: 9%; }
+.object-left-shelf { left: -5%; top: 14%; width: 52%; }
+.object-left-shelf-moved { left: -7%; top: 14%; height: 72%; }
+.object-left-wagon { right: 5%; top: 38%; width: 39%; }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
 .turn-button { position: absolute; z-index: 8; top: 44%; transform: translateY(-50%); width: 48px; height: 78px; border: 0; background: rgba(4,6,6,.38); color: rgba(235,236,226,.75); font: 200 52px/1 Georgia,serif; }
 .turn-left { left: 0; } .turn-right { right: 0; }
