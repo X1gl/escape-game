@@ -1,10 +1,16 @@
-import { isEnabled, play, setEnabled, startHum, stopHum } from "./audio.js";
+Y��x-���jם��i��+��j[h��ܢ���]��d赩h��n�X�z�wimport { isEnabled, play, setEnabled, startHum, stopHum } from "./audio.js";
 
 const app = document.querySelector("#app");
 const DIRECTIONS = ["FRONT", "RIGHT", "BACK", "LEFT"];
 let data;
 let touchStartX = null;
 let timers = [];
+const chapter1Assets = [
+  "backgrounds-v2/front-present-v3.webp", "objects-v2/front-door-closed-v2.webp", "objects-v2/front-door-panel-open-v2.webp",
+  "objects-v2/right-mirror-v3.webp", "objects-v2/right-sink-v3.webp", "objects-v2/right-cabinet-closed-v2.webp", "objects-v2/right-cabinet-open-docs-v3.webp",
+  "objects-v2/back-opening-v2.webp", "objects-v2/back-bed-v3.webp", "objects-v2/back-locker-closed-v2.webp", "objects-v2/back-locker-open-v2.webp",
+  "objects-v2/left-shelf-base-v2.webp", "objects-v2/left-shelf-moved-v2.webp", "objects-v2/left-wagon-tweezers-v3.webp", "objects-v2/left-wagon-empty-v2.webp"
+];
 
 const freshState = () => ({
   version: 1,
@@ -37,6 +43,7 @@ async function loadData() {
     return response.json();
   }));
   data = Object.fromEntries(names.map((name, index) => [name, values[index]]));
+  chapter1Assets.forEach((file) => { const image = new Image(); image.src = `assets/room207/${file}`; });
   ensurePersistentData();
   render();
 }
@@ -247,12 +254,9 @@ function interact(id) {
       break;
     case "wagon":
       if (!state.flags.memoryWagon) {
-        setFlags({ memoryWagon: true });
-        say("ガシャァン――！　金属音。暗い床。誰かの手。……それ以上は、思い出せない。", "");
-      } else if (!hasItem("tweezers")) {
         addItem("tweezers");
-        setFlags({ gotTweezers: true });
-        say("トレイの隅に医療用ピンセットが残っていた。使えるかもしれない。");
+        setFlags({ memoryWagon: true, gotTweezers: true });
+        say("ガシャァン――！　金属音。暗い床。誰かの手。……それ以上は、思い出せない。\nトレイの隅に医療用ピンセットが残っていた。使えるかもしれない。", "");
       } else {
         say("古い医療用ワゴンだ。ぶつけたような新しい凹みがある。");
       }
@@ -286,7 +290,12 @@ function interact(id) {
       break;
     case "bed":
       if (!state.flags.hasFlashlight) say("ベッドの下は暗くて見えない。");
-      else {
+      else if (state.selectedItem !== "flashlight") say("暗がりの奥までは見通せない。懐中電灯で照らそう。");
+      else if (!state.flags.gotMetalPiece) {
+        addItem("metal_piece");
+        setFlags({ sawScratches: true, gotMetalPiece: true });
+        say("懐中電灯でベッドの下を照らす。日数を数えたような傷の脇に、薄い金属片が光った。持ち出せそうだ。");
+      } else {
         setFlags({ sawScratches: true });
         say("ベッド下の床際に、日数を数えたような傷がいくつもある。数える気にはなれない。");
       }
@@ -433,7 +442,7 @@ function room2Art() {
 }
 
 function objectArt(file, className) {
-  return `<img class="scene-object ${className}" src="assets/room207/objects-v2/${file}" alt="" aria-hidden="true">`;
+  return `<img class="scene-object ${className}" src="assets/room207/objects-v2/${file}" decoding="sync" alt="" aria-hidden="true">`;
 }
 
 function roomBackdrop(direction) {
@@ -447,20 +456,18 @@ function roomArt() {
     return `${roomBackdrop("front")}${objectArt(door, "object-front-door")}`;
   }
   if (state.direction === "RIGHT") {
-    const cabinet = flags.cabinetOpened ? "right-cabinet-open-v2.webp" : "right-cabinet-closed-v2.webp";
+    const cabinet = flags.cabinetOpened ? "right-cabinet-open-docs-v3.webp" : "right-cabinet-closed-v2.webp";
     return `${roomBackdrop("right")}${objectArt("right-mirror-v3.webp", "object-right-mirror")}${objectArt("right-sink-v3.webp", "object-right-sink")}${objectArt(cabinet, flags.cabinetOpened ? "object-right-cabinet-open" : "object-right-cabinet")}`;
   }
   if (state.direction === "BACK") {
-    const metalPiece = flags.hasFlashlight && !flags.gotMetalPiece
-      ? objectArt("back-metal-piece-v2.webp", "object-back-metal-piece")
-      : "";
     const locker = flags.lockerOpened ? "back-locker-open-v2.webp" : "back-locker-closed-v2.webp";
     const lockerClass = flags.lockerOpened ? "object-back-locker-open" : "object-back-locker";
-    return `${roomBackdrop("back")}${objectArt("back-opening-v2.webp", "object-back-opening")}${objectArt("back-bed-v3.webp", "object-back-bed")}${objectArt(locker, lockerClass)}${metalPiece}`;
+    return `${roomBackdrop("back")}${objectArt("back-opening-v2.webp", "object-back-opening")}${objectArt("back-bed-v3.webp", "object-back-bed")}${objectArt(locker, lockerClass)}`;
   }
   const shelf = flags.shelfMoved ? "left-shelf-moved-v2.webp" : "left-shelf-base-v2.webp";
-  const wagon = flags.shelfMoved && !flags.gotTweezers ? "left-wagon-tweezers-v2.webp" : "left-wagon-empty-v2.webp";
-  return `${roomBackdrop("left")}${objectArt(shelf, flags.shelfMoved ? "object-left-shelf-moved" : "object-left-shelf")}${objectArt(wagon, "object-left-wagon")}`;
+  const wagon = !flags.gotTweezers ? "left-wagon-tweezers-v3.webp" : "left-wagon-empty-v2.webp";
+  const graffiti = flags.shelfMoved ? objectArt("left-graffiti-v3.svg", "object-left-graffiti") : "";
+  return `${roomBackdrop("left")}${graffiti}${objectArt(shelf, flags.shelfMoved ? "object-left-shelf-moved" : "object-left-shelf")}${objectArt(wagon, "object-left-wagon")}`;
 }
 
 function titleTemplate() {
@@ -481,7 +488,7 @@ function novelTemplate() {
 function roomTemplate() {
   const view = data.room.views[state.direction];
   const selected = state.selectedItem ? data.items[state.selectedItem] : null;
-  const hotspots = view.hotspots.filter((spot) => !(spot.id === "metalPiece" && state.flags.gotMetalPiece)).map((spot) =>
+  const hotspots = view.hotspots.filter((spot) => spot.id !== "metalPiece").map((spot) =>
     `<button class="hotspot hotspot-${spot.id}" data-interact="${spot.id}" style="left:${spot.x}%;top:${spot.y}%;width:${spot.w}%;height:${spot.h}%" aria-label="${spot.label}"><span>${spot.label}</span></button>`).join("");
   const inventory = state.inventory.length ? state.inventory.map((id) => `<button class="item-card ${state.selectedItem === id ? "selected" : ""}" data-item="${id}"><span class="item-icon item-${id}"></span><small>${data.items[id].name}</small></button>`).join("") : '<p class="empty-inventory">まだ何も持っていない</p>';
   return `<section class="room-screen"><header class="room-header"><div><span>CHAPTER 1</span><strong>${data.scenario.escape01.room}</strong></div><div class="header-actions">

@@ -19,7 +19,7 @@ button:disabled { cursor: default; }
 .game-shell { min-height: 100svh; overflow: hidden; background: #080a0b; }
 
 /* title */
-.title-screen { position: relative; min-height: 100svh; padding: calc(env(safe-area-inset-top) + 54px) 28px calc(env(safe-area-inset-bottom) + 24px); display: flex; flex-direction: column; background: linear-gradient(to bottom, rgba(4,6,6,.2), rgba(4,6,6,.74)), #080a09 url("assets/room207/room207-front-base-v1.webp?v=1.3.3") center / cover no-repeat; isolation: isolate; }
+.title-screen { position: relative; min-height: 100svh; padding: calc(env(safe-area-inset-top) + 54px) 28px calc(env(safe-area-inset-bottom) + 24px); display: flex; flex-direction: column; background: linear-gradient(to bottom, rgba(4,6,6,.2), rgba(4,6,6,.74)), #080a09 url("assets/room207/backgrounds-v2/front-present-v3.webp?v=1.5.5") center / cover no-repeat; isolation: isolate; }
 .title-screen::before { display: none; }
 .title-noise { position: absolute; z-index: -1; inset: 0; opacity: .17; background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.035) 3px 4px), radial-gradient(circle at 15% 70%, rgba(255,255,255,.07) 0 1px, transparent 2px); background-size: auto, 13px 11px; }
 .title-copy { margin-top: auto; }
@@ -39,7 +39,7 @@ button:disabled { cursor: default; }
 
 /* novel */
 .novel-screen { position: relative; min-height: 100svh; overflow: hidden; background: #0b0e0d; outline: none; }
-.novel-room { position: absolute; inset: 0; background: #0b0e0d url("assets/room207/room207-front-base-v1.webp?v=1.3.1") center / cover no-repeat; filter: saturate(.65) brightness(.82); }
+.novel-room { position: absolute; inset: 0; background: #0b0e0d url("assets/room207/backgrounds-v2/front-present-v3.webp?v=1.5.5") center / cover no-repeat; filter: none; }
 .novel-room::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.18) 58%, rgba(0,0,0,.5)); }
 .novel-door, .novel-bed { display: none; }
 .vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.45) 70%, #050606 100%); }
@@ -65,20 +65,21 @@ button:disabled { cursor: default; }
 .asset-art::before, .asset-art::after { display: none; }
 .chapter1-backdrop { inset: 0; filter: none; }
 .scene-object { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; }
-.object-front-door { left: 28%; top: 11%; width: 44%; }
+.object-front-door { left: 28%; top: 17%; width: 44%; }
 .object-front-door, .object-right-mirror, .object-right-sink, .object-back-opening { filter: drop-shadow(0 1px 1px rgba(0,0,0,.26)); }
 .object-right-mirror { left: 16%; top: 21%; width: 23%; }
 .object-right-sink { left: 13%; top: 47%; width: 27%; }
-.object-right-cabinet { right: 10%; top: 21%; width: 32%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
-.object-right-cabinet-open { right: 7%; top: 20%; width: 37%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
+.object-right-cabinet { right: 10%; top: 31%; width: 32%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
+.object-right-cabinet-open { right: 7%; top: 29%; width: 37%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
 .object-back-opening { left: 36%; top: 12%; width: 29%; }
 .object-back-bed { left: 6%; top: 66%; width: 60%; filter: drop-shadow(0 5px 2px rgba(0,0,0,.30)); }
 .object-back-locker { left: 74%; top: 48%; width: 15%; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 3px 2px rgba(0,0,0,.20)); }
 .object-back-locker-open { left: 69%; top: 47%; width: 21%; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 3px 2px rgba(0,0,0,.20)); }
 .object-back-metal-piece { left: 25%; top: 82%; width: 7%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.38)); }
-.object-left-shelf { left: 9%; top: 16%; width: 44%; height: 65%; object-fit: fill; filter: drop-shadow(0 5px 2px rgba(0,0,0,.28)); }
-.object-left-shelf-moved { left: -7%; top: 16%; height: 66%; filter: drop-shadow(0 5px 2px rgba(0,0,0,.28)); }
-.object-left-wagon { right: 8%; top: 56%; width: 28%; filter: drop-shadow(0 5px 2px rgba(0,0,0,.32)); }
+.object-left-shelf { left: 9%; top: 19%; width: 44%; height: 67%; object-fit: fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
+.object-left-shelf-moved { left: -7%; top: 19%; height: 67%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
+.object-left-wagon { right: 8%; top: 55%; width: 28%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.36)); }
+.object-left-graffiti { left: 24%; top: 55%; width: 17%; opacity: .48; mix-blend-mode: multiply; filter: sepia(.35) saturate(.6); }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
 .turn-button { position: absolute; z-index: 8; top: 44%; transform: translateY(-50%); width: 48px; height: 78px; border: 0; background: rgba(4,6,6,.38); color: rgba(235,236,226,.75); font: 200 52px/1 Georgia,serif; }
 .turn-left { left: 0; } .turn-right { right: 0; }
@@ -148,7 +149,17 @@ button:disabled { cursor: default; }
 .medical-cart::before { left: 5%; } .medical-cart::after { right: 5%; }
 
 /* interactions and inventory */
-.hotspot { position: absolute; z-index: 6; min-width: 44px; min-height: 44px; padding: 0; border: 1px solid transparent; border-radius: 3px; background: transparent; }
+.hotspot { position: absolute; z-index: 6; min-width: 0; min-height: 0; padding: 0; border: 1px solid transparent; border-radius: 3px; background: transparent; }
+.hotspot-door { left:28%!important; top:17%!important; width:44%!important; height:67%!important; }
+.hotspot-doorTrace { left:40%!important; top:23%!important; width:20%!important; height:13%!important; }
+.hotspot-panel { left:42%!important; top:65%!important; width:17%!important; height:15%!important; }
+.hotspot-sink { left:13%!important; top:21%!important; width:27%!important; height:62%!important; }
+.hotspot-cabinet { left:58%!important; top:31%!important; width:32%!important; height:54%!important; }
+.hotspot-opening { left:36%!important; top:12%!important; width:29%!important; height:22%!important; }
+.hotspot-bed { left:6%!important; top:66%!important; width:60%!important; height:22%!important; }
+.hotspot-locker { left:74%!important; top:48%!important; width:15%!important; height:37%!important; }
+.hotspot-shelf { left:9%!important; top:19%!important; width:44%!important; height:67%!important; }
+.hotspot-wagon { left:64%!important; top:55%!important; width:28%!important; height:31%!important; }
 .hotspot span { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%) translateY(4px); white-space: nowrap; padding: 4px 7px; opacity: 0; border: 1px solid rgba(255,255,255,.14); background: rgba(5,7,7,.75); color: #c9cec7; font-size: 9px; transition: .18s; }
 .hotspot:active, .hotspot:focus-visible { border-color: rgba(199,173,114,.55); background: rgba(199,173,114,.06); }
 .hotspot:active span, .hotspot:focus-visible span { opacity: 1; transform: translateX(-50%) translateY(0); }
