@@ -63,7 +63,17 @@ button:disabled { cursor: default; }
 .room-art::after { content: ""; position: absolute; left: 0; right: 0; top: 10%; height: 1px; background: rgba(232,235,223,.06); box-shadow: 0 105px rgba(232,235,223,.035); }
 .asset-art { background: #0b0e0d var(--room-image) center / cover no-repeat; }
 .asset-art::before, .asset-art::after { display: none; }
-.scene-item { position: absolute; z-index: 3; display: block; pointer-events: none; object-fit: contain; filter: drop-shadow(0 0 5px rgba(213, 222, 214, .3)); }
+.chapter1-backdrop { inset: -8px; filter: brightness(.38) saturate(.68) contrast(1.08) blur(5px); }
+.scene-focus { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; filter: brightness(.82) contrast(1.09) drop-shadow(0 5px 10px rgba(0,0,0,.44)); }
+.focus-front-door { left: 33.01%; top: 20.12%; width: 34.77%; height: 62.5%; }
+.focus-right-sink { left: 5.37%; top: 21.48%; width: 41.02%; height: 44.92%; }
+.focus-right-cabinet { left: 54.69%; top: 21%; width: 38.09%; height: 60.55%; }
+.focus-back-opening { left: 30.27%; top: 3.42%; width: 39.06%; height: 30.27%; }
+.focus-back-bed { left: 0; top: 45.9%; width: 68.36%; height: 39.06%; }
+.focus-back-locker { left: 64.45%; top: 33.69%; width: 35.55%; height: 52.73%; }
+.focus-left-shelf { left: 2.93%; top: 14.16%; width: 55.18%; height: 71.29%; }
+.focus-left-wagon { left: 55.18%; top: 35.16%; width: 41.02%; height: 49.8%; }
+.scene-item { position: absolute; z-index: 5; display: block; pointer-events: none; object-fit: contain; filter: drop-shadow(0 0 5px rgba(213, 222, 214, .3)); }
 .scene-metal-piece { left: 25%; top: 77%; width: 8%; transform: rotate(8deg); }
 .scene-tweezers { left: 73%; top: 56%; width: 11%; transform: rotate(-8deg); }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
