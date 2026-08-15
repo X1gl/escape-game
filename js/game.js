@@ -6,10 +6,10 @@ let data;
 let touchStartX = null;
 let timers = [];
 const chapter1Assets = [
-  "backgrounds-v2/front-present-v3.webp", "objects-v2/front-door-closed-v2.webp", "objects-v2/front-door-panel-open-v2.webp",
-  "objects-v2/right-mirror-v3.webp", "objects-v2/right-sink-v3.webp", "objects-v2/right-cabinet-closed-v2.webp", "objects-v2/right-cabinet-open-docs-v3.webp",
-  "objects-v2/back-opening-v2.webp", "objects-v2/back-bed-v3.webp", "objects-v2/back-locker-closed-v2.webp", "objects-v2/back-locker-open-v2.webp",
-  "objects-v2/left-shelf-base-v2.webp", "objects-v2/left-shelf-moved-v2.webp", "objects-v2/left-wagon-tweezers-v3.webp", "objects-v2/left-wagon-empty-v2.webp"
+  "backgrounds-v2/front-present-v3.webp", "objects-v2/front-door-closed-v2.webp", "objects-v2/front-door-panel-open-v3.webp",
+  "objects-v2/right-mirror-v3.webp", "objects-v2/right-sink-v3.webp", "objects-v2/right-cabinet-closed-v2.webp", "objects-v2/right-cabinet-open-v3.webp",
+  "objects-v2/back-opening-v2.webp", "objects-v2/back-bed-v3.webp", "objects-v2/back-locker-closed-v2.webp", "objects-v2/back-locker-open-v3.webp",
+  "objects-v2/left-shelf-base-v2.webp", "objects-v2/left-shelf-moved-v2.webp", "objects-v2/left-wagon-empty-v2.webp"
 ];
 
 const freshState = () => ({
@@ -449,16 +449,6 @@ function objectArt(file, className) {
   return `<img class="scene-object ${className}" src="assets/room207/objects-v2/${file}" decoding="sync" alt="" aria-hidden="true">`;
 }
 
-const spotObjectClass = { door:"object-front-door", doorTrace:"object-front-door", panel:"object-front-door", mirror:"object-right-mirror", sink:"object-right-sink", cabinet:"object-right-cabinet", opening:"object-back-opening", bed:"object-back-bed", locker:"object-back-locker", shelf:"object-left-shelf", wagon:"object-left-wagon" };
-function isVisibleObjectPixel(spotId, event) {
-  const image = app.querySelector(`.${spotObjectClass[spotId]}`);
-  if (!image || !image.complete || !image.naturalWidth) return true;
-  const rect = image.getBoundingClientRect(); const x = Math.floor((event.clientX - rect.left) * image.naturalWidth / rect.width); const y = Math.floor((event.clientY - rect.top) * image.naturalHeight / rect.height);
-  if (x < 0 || y < 0 || x >= image.naturalWidth || y >= image.naturalHeight) return false;
-  const canvas = document.createElement("canvas"); canvas.width = image.naturalWidth; canvas.height = image.naturalHeight;
-  const context = canvas.getContext("2d", { willReadFrequently: true }); context.drawImage(image, 0, 0);
-  return context.getImageData(x, y, 1, 1).data[3] > 18;
-}
 
 function roomBackdrop(direction) {
   return `<div class="room-art asset-art chapter1-backdrop" style="--room-image:url('assets/room207/backgrounds-v2/${direction}-clean-v3.webp')" aria-hidden="true"></div>`;
@@ -467,24 +457,25 @@ function roomBackdrop(direction) {
 function roomArt() {
   const flags = state.flags;
   if (state.direction === "FRONT") {
-    const door = flags.panelOpened ? "front-door-panel-open-v2.webp" : "front-door-closed-v2.webp";
+    const door = flags.panelOpened ? "front-door-panel-open-v3.webp" : "front-door-closed-v2.webp";
     return `${roomBackdrop("front")}${objectArt(door, "object-front-door")}`;
   }
   if (state.direction === "RIGHT") {
-    const cabinet = flags.cabinetOpened ? "right-cabinet-open-v2.webp" : "right-cabinet-closed-v2.webp";
+    const cabinet = flags.cabinetOpened ? "right-cabinet-open-v3.webp" : "right-cabinet-closed-v2.webp";
     const files = flags.cabinetOpened ? objectArt("right-cabinet-files-v4.svg", "object-right-cabinet-files") : "";
     return `${roomBackdrop("right")}${objectArt("right-mirror-v3.webp", "object-right-mirror")}${objectArt("right-sink-v3.webp", "object-right-sink")}${files}${objectArt(cabinet, flags.cabinetOpened ? "object-right-cabinet-open" : "object-right-cabinet")}`;
   }
   if (state.direction === "BACK") {
-    const locker = flags.lockerOpened ? "back-locker-open-v2.webp" : "back-locker-closed-v2.webp";
+    const locker = flags.lockerOpened ? "back-locker-open-v3.webp" : "back-locker-closed-v2.webp";
     const lockerClass = flags.lockerOpened ? "object-back-locker-open" : "object-back-locker";
     return `${roomBackdrop("back")}${objectArt("back-opening-v2.webp", "object-back-opening")}${objectArt("back-bed-v3.webp", "object-back-bed")}${objectArt(locker, lockerClass)}`;
   }
   const shelf = flags.shelfMoved ? "left-shelf-moved-v2.webp" : "left-shelf-base-v2.webp";
+  const shelfBacking = objectArt("left-shelf-backing-v5.svg", flags.shelfMoved ? "object-left-shelf-backing-moved" : "object-left-shelf-backing");
   const wagon = "left-wagon-empty-v2.webp";
   const tweezers = !flags.gotTweezers ? '<img class="scene-object object-left-wagon-tweezers" src="assets/items/tweezers-v1.webp" alt="" aria-hidden="true">' : "";
   const graffiti = flags.shelfMoved ? objectArt("left-graffiti-v3.svg", "object-left-graffiti") : "";
-  return `${roomBackdrop("left")}${graffiti}${objectArt(shelf, flags.shelfMoved ? "object-left-shelf-moved" : "object-left-shelf")}${objectArt(wagon, "object-left-wagon")}${tweezers}`;
+  return `${roomBackdrop("left")}${graffiti}${shelfBacking}${objectArt(shelf, flags.shelfMoved ? "object-left-shelf-moved" : "object-left-shelf")}${objectArt(wagon, "object-left-wagon")}${tweezers}`;
 }
 
 function titleTemplate() {
@@ -633,7 +624,7 @@ function bindEvents() {
       render();
     }
   }));
-  app.querySelectorAll("[data-interact]").forEach((element) => element.addEventListener("click", (event) => { if (isVisibleObjectPixel(element.dataset.interact, event)) interact(element.dataset.interact); }));
+  app.querySelectorAll("[data-interact]").forEach((element) => element.addEventListener("click", () => interact(element.dataset.interact)));
   app.querySelectorAll("[data-item]").forEach((element) => element.addEventListener("click", () => {
     play("tap");
     mutate({ selectedItem: state.selectedItem === element.dataset.item ? null : element.dataset.item });
