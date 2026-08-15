@@ -57,27 +57,27 @@ button:disabled { cursor: default; }
 .header-actions { display: flex; gap: 6px; }
 .header-actions button { height: 34px; min-width: 45px; padding: 0 9px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--muted); font-size: 10px; }
 .scene-wrap { position: relative; width: 100%; min-height: 0; aspect-ratio: 1 / 1; overflow: hidden; background: #151918; touch-action: pan-y; }
-.scene-wrap::after { content: ""; position: absolute; z-index: 4; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 44%, transparent 44%, rgba(0,0,0,.12) 82%, rgba(0,0,0,.24) 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.01) 3px 4px); }
+.scene-wrap::after { content: ""; position: absolute; z-index: 4; inset: 0; pointer-events: none; opacity: .48; background: radial-gradient(ellipse at 25% 25%, rgba(214,220,211,.055) 0 1px, transparent 2px), radial-gradient(ellipse at 68% 37%, rgba(208,216,207,.04) 0 1px, transparent 2px), radial-gradient(ellipse at 43% 58%, rgba(205,214,205,.035) 0 1px, transparent 2px), radial-gradient(ellipse at 60% 15%, rgba(225,229,218,.025) 0 7%, transparent 25%); background-size: 41px 43px, 59px 61px, 73px 67px, auto; }
 .room-art { position: absolute; inset: 0; transition: filter .3s; background: linear-gradient(145deg,#252a28 0%,#171c1a 52%,#101312 100%); }
 .room-art::before { content: ""; position: absolute; left: -8%; right: -8%; bottom: -16%; height: 46%; transform: perspective(230px) rotateX(46deg); transform-origin: top; background: repeating-linear-gradient(90deg,#161a18 0 78px,#0c0f0e 80px); border-top: 2px solid #080a09; }
 .room-art::after { content: ""; position: absolute; left: 0; right: 0; top: 10%; height: 1px; background: rgba(232,235,223,.06); box-shadow: 0 105px rgba(232,235,223,.035); }
 .asset-art { background: #0b0e0d var(--room-image) center / cover no-repeat; }
 .asset-art::before, .asset-art::after { display: none; }
-.chapter1-backdrop { inset: -4px; filter: brightness(.68) saturate(.78) contrast(1.05) blur(3px); }
-.scene-object { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; filter: drop-shadow(0 4px 7px rgba(0,0,0,.34)); }
-.object-front-door { left: 30%; top: 18%; width: 40%; }
+.chapter1-backdrop { inset: 0; filter: none; }
+.scene-object { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; filter: drop-shadow(0 3px 4px rgba(0,0,0,.24)); }
+.object-front-door { left: 28%; top: 11%; width: 44%; }
 .object-right-mirror { left: 16%; top: 22%; width: 23%; }
-.object-right-sink { left: 11%; top: 43%; width: 39%; }
-.object-right-cabinet { left: 53%; top: 19%; width: 38%; }
-.object-right-cabinet-open { left: 48%; top: 18%; width: 46%; }
-.object-back-opening { left: 31%; top: 9%; width: 36%; }
-.object-back-bed { left: 4%; top: 56%; width: 67%; }
-.object-back-locker { left: 72%; top: 38%; width: 21%; }
-.object-back-locker-open { left: 66%; top: 37%; width: 28%; }
-.object-back-metal-piece { left: 25%; top: 77%; width: 9%; }
-.object-left-shelf { left: -5%; top: 14%; width: 52%; }
-.object-left-shelf-moved { left: -7%; top: 14%; height: 72%; }
-.object-left-wagon { right: 5%; top: 38%; width: 39%; }
+.object-right-sink { left: 13%; top: 47%; width: 27%; }
+.object-right-cabinet { right: 9%; top: 20%; width: 34%; }
+.object-right-cabinet-open { right: 6%; top: 19%; width: 39%; }
+.object-back-opening { left: 36%; top: 12%; width: 29%; }
+.object-back-bed { left: 6%; top: 66%; width: 60%; }
+.object-back-locker { left: 72%; top: 47%; width: 17%; }
+.object-back-locker-open { left: 67%; top: 46%; width: 23%; }
+.object-back-metal-piece { left: 25%; top: 82%; width: 7%; }
+.object-left-shelf { left: 9%; top: 16%; width: 44%; }
+.object-left-shelf-moved { left: -7%; top: 16%; height: 66%; }
+.object-left-wagon { right: 8%; top: 56%; width: 28%; }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
 .turn-button { position: absolute; z-index: 8; top: 44%; transform: translateY(-50%); width: 48px; height: 78px; border: 0; background: rgba(4,6,6,.38); color: rgba(235,236,226,.75); font: 200 52px/1 Georgia,serif; }
 .turn-left { left: 0; } .turn-right { right: 0; }
