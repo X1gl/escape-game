@@ -1,4 +1,4 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×]÷Ódèµ©hºÚn¶X§zÍwimport { isEnabled, play, setEnabled, startHum, stopHum } from "./audio.js";
+import { isEnabled, play, setEnabled, startHum, stopHum } from "./audio.js";
 
 const app = document.querySelector("#app");
 const DIRECTIONS = ["FRONT", "RIGHT", "BACK", "LEFT"];
