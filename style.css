@@ -76,12 +76,10 @@ button:disabled { cursor: default; }
 .object-back-locker, .object-back-locker-open { left: 74%; top: 48%; width: 15%; height: 37%; object-fit: fill; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
 .object-back-metal-piece { left: 25%; top: 82%; width: 7%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.38)); }
 .object-left-shelf { left: 9%; top: 19%; width: 44%; height: 67%; object-fit: fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
-.object-left-shelf-backing { left: 9%; top: 19%; width:44%; height:67%; z-index:4; }
 .object-left-shelf-moved { left: 0%; top: 19%; height: 67%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
-.object-left-shelf-backing-moved { left:0%; top:19%; width:44%; height:67%; z-index:4; }
 .object-left-wagon { right: 8%; top: 55%; width: 28%; height:31%; object-fit:fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.36)); }
 .object-left-wagon-tweezers { right:17%; top:60%; width:9%; transform:rotate(-10deg); filter:drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
-.object-left-graffiti { left: 24%; top: 55%; width: 17%; opacity: .48; mix-blend-mode: multiply; filter: sepia(.35) saturate(.6); }
+.object-left-graffiti { left: 31%; top: 60%; width: 17%; z-index: 5; opacity: .62; mix-blend-mode: multiply; filter: sepia(.35) saturate(.6); }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
 .turn-button { position: absolute; z-index: 8; top: 44%; transform: translateY(-50%); width: 48px; height: 78px; border: 0; background: rgba(4,6,6,.38); color: rgba(235,236,226,.75); font: 200 52px/1 Georgia,serif; }
 .turn-left { left: 0; } .turn-right { right: 0; }
