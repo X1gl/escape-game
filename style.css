@@ -65,20 +65,20 @@ button:disabled { cursor: default; }
 .asset-art::before, .asset-art::after { display: none; }
 .chapter1-backdrop { inset: 0; filter: none; }
 .scene-object { position: absolute; z-index: 5; display: block; max-width: none; pointer-events: none; object-fit: contain; }
-.object-front-door { left: 28%; top: 17%; width: 44%; }
+.object-front-door { left: 28%; top: 17%; width: 44%; height: 67%; object-fit: fill; }
 .object-front-door, .object-right-mirror, .object-right-sink, .object-back-opening { filter: drop-shadow(0 1px 1px rgba(0,0,0,.26)); }
 .object-right-mirror { left: 16%; top: 21%; width: 23%; }
 .object-right-sink { left: 13%; top: 47%; width: 27%; }
-.object-right-cabinet { right: 10%; top: 31%; width: 32%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
-.object-right-cabinet-open { right: 7%; top: 29%; width: 37%; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
+.object-right-cabinet, .object-right-cabinet-open { right: 10%; top: 31%; width: 32%; height: 54%; object-fit: fill; filter: brightness(.86) saturate(.82) contrast(.94) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
+.object-right-cabinet-files { right: 15%; top: 46%; width: 18%; height: 22%; z-index: 5; }
 .object-back-opening { left: 36%; top: 12%; width: 29%; }
 .object-back-bed { left: 6%; top: 66%; width: 60%; filter: drop-shadow(0 5px 2px rgba(0,0,0,.30)); }
-.object-back-locker { left: 74%; top: 48%; width: 15%; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 3px 2px rgba(0,0,0,.20)); }
-.object-back-locker-open { left: 69%; top: 47%; width: 21%; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 3px 2px rgba(0,0,0,.20)); }
+.object-back-locker, .object-back-locker-open { left: 74%; top: 48%; width: 15%; height: 37%; object-fit: fill; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
 .object-back-metal-piece { left: 25%; top: 82%; width: 7%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.38)); }
 .object-left-shelf { left: 9%; top: 19%; width: 44%; height: 67%; object-fit: fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
-.object-left-shelf-moved { left: -7%; top: 19%; height: 67%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
-.object-left-wagon { right: 8%; top: 55%; width: 28%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.36)); }
+.object-left-shelf-moved { left: 0%; top: 19%; height: 67%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
+.object-left-wagon { right: 8%; top: 55%; width: 28%; height:31%; object-fit:fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.36)); }
+.object-left-wagon-tweezers { right:17%; top:60%; width:9%; transform:rotate(-10deg); filter:drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
 .object-left-graffiti { left: 24%; top: 55%; width: 17%; opacity: .48; mix-blend-mode: multiply; filter: sepia(.35) saturate(.6); }
 .direction-chip { position: absolute; z-index: 7; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(7,9,9,.58); color: #c8ccc6; font-size: 9px; letter-spacing: .15em; }
 .turn-button { position: absolute; z-index: 8; top: 44%; transform: translateY(-50%); width: 48px; height: 78px; border: 0; background: rgba(4,6,6,.38); color: rgba(235,236,226,.75); font: 200 52px/1 Georgia,serif; }
@@ -154,6 +154,7 @@ button:disabled { cursor: default; }
 .hotspot-doorTrace { left:40%!important; top:23%!important; width:20%!important; height:13%!important; }
 .hotspot-panel { left:42%!important; top:65%!important; width:17%!important; height:15%!important; }
 .hotspot-sink { left:13%!important; top:21%!important; width:27%!important; height:62%!important; }
+.hotspot-mirror { left:16%!important; top:21%!important; width:23%!important; height:25%!important; }
 .hotspot-cabinet { left:58%!important; top:31%!important; width:32%!important; height:54%!important; }
 .hotspot-opening { left:36%!important; top:12%!important; width:29%!important; height:22%!important; }
 .hotspot-bed { left:6%!important; top:66%!important; width:60%!important; height:22%!important; }
