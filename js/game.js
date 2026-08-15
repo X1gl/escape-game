@@ -448,7 +448,7 @@ function roomArt() {
   }
   if (state.direction === "RIGHT") {
     const cabinet = flags.cabinetOpened ? "right-cabinet-open-v2.webp" : "right-cabinet-closed-v2.webp";
-    return `${roomBackdrop("right")}${objectArt("right-mirror-v2.webp", "object-right-mirror")}${objectArt("right-sink-v2.webp", "object-right-sink")}${objectArt(cabinet, flags.cabinetOpened ? "object-right-cabinet-open" : "object-right-cabinet")}`;
+    return `${roomBackdrop("right")}${objectArt("right-mirror-v3.webp", "object-right-mirror")}${objectArt("right-sink-v3.webp", "object-right-sink")}${objectArt(cabinet, flags.cabinetOpened ? "object-right-cabinet-open" : "object-right-cabinet")}`;
   }
   if (state.direction === "BACK") {
     const metalPiece = flags.hasFlashlight && !flags.gotMetalPiece
