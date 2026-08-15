@@ -76,7 +76,9 @@ button:disabled { cursor: default; }
 .object-back-locker, .object-back-locker-open { left: 74%; top: 48%; width: 15%; height: 37%; object-fit: fill; filter: brightness(.84) saturate(.80) contrast(.92) drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
 .object-back-metal-piece { left: 25%; top: 82%; width: 7%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.38)); }
 .object-left-shelf { left: 9%; top: 19%; width: 44%; height: 67%; object-fit: fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
+.object-left-shelf-backing { left: 9%; top: 19%; width:44%; height:67%; z-index:4; }
 .object-left-shelf-moved { left: 0%; top: 19%; height: 67%; filter: drop-shadow(0 2px 1px rgba(0,0,0,.3)); }
+.object-left-shelf-backing-moved { left:0%; top:19%; width:44%; height:67%; z-index:4; }
 .object-left-wagon { right: 8%; top: 55%; width: 28%; height:31%; object-fit:fill; filter: drop-shadow(0 2px 1px rgba(0,0,0,.36)); }
 .object-left-wagon-tweezers { right:17%; top:60%; width:9%; transform:rotate(-10deg); filter:drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
 .object-left-graffiti { left: 24%; top: 55%; width: 17%; opacity: .48; mix-blend-mode: multiply; filter: sepia(.35) saturate(.6); }
@@ -153,7 +155,7 @@ button:disabled { cursor: default; }
 .hotspot-door { left:28%!important; top:17%!important; width:44%!important; height:67%!important; }
 .hotspot-doorTrace { left:40%!important; top:23%!important; width:20%!important; height:13%!important; }
 .hotspot-panel { left:42%!important; top:65%!important; width:17%!important; height:15%!important; }
-.hotspot-sink { left:13%!important; top:21%!important; width:27%!important; height:62%!important; }
+.hotspot-sink { left:13%!important; top:47%!important; width:27%!important; height:36%!important; }
 .hotspot-mirror { left:16%!important; top:21%!important; width:23%!important; height:25%!important; }
 .hotspot-cabinet { left:58%!important; top:31%!important; width:32%!important; height:54%!important; }
 .hotspot-opening { left:36%!important; top:12%!important; width:29%!important; height:22%!important; }
